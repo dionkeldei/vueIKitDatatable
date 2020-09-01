@@ -12,7 +12,7 @@
         </tr>
     </tbody>
     </table>
-
+    <p class="uk-text-center uk-text-meta">Página No. {{pageNum}}</p>
     <ul class="uk-pagination uk-flex-center" uk-margin>
     <li><a href="#" @click="pageNum -= 1"><span uk-pagination-previous></span></a></li>
     <li v-for="index in numOfPages" :key="index"><a href="#" @click="getPage(index)">{{index}}</a></li>
@@ -31,7 +31,8 @@ export default {
         'Nombre'
       ],
       currentData: [],
-      show: 0,
+      show: 2,
+      showPageNum: true,
       numOfPages: 0,
       pageNum: 0,
       tableData: [
@@ -124,11 +125,21 @@ export default {
   },
   methods: {
     initTable: function () {
-      this.show = 3
       this.pageNum = 1
       this.numOfPages = this.tableData.length / this.show
       if(Math.floor(this.numOfPages) < this.numOfPages){
         this.numOfPages = Math.floor(this.numOfPages) + 1
+      }
+      this.countData()
+    },
+    countData: function () {
+      this.currentData = []
+      var startCount = (this.show * (this.pageNum - 1))
+      var finishCount = startCount + this.show
+      for(startCount; startCount < finishCount; startCount++){
+        if(this.tableData[startCount] !== undefined){
+          this.currentData.push(this.tableData[startCount])
+        }
       }
     },
     getPage: function (page) {
@@ -147,14 +158,10 @@ export default {
         this.pageNum = this.numOfPages
         return false
       }
-      this.currentData = []
-      var startCount = (this.show * (this.pageNum - 1))
-      var finishCount = startCount + this.show
-      for(startCount; startCount < finishCount; startCount++){
-        if(this.tableData[startCount] !== undefined){
-          this.currentData.push(this.tableData[startCount])
-        }
-      }
+      this.countData()
+    },
+    show: function () {
+      this.initTable()
     }
   },
   components: {
