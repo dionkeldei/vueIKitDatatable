@@ -20,8 +20,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="( data,i ) in currentData" v-bind:key="i" class="link-ff-table-876543">
-            <td v-bind:id="data.id" v-for="( field,j ) in data.fields" v-bind:key="j">{{field}}</td>
+        <tr v-for="( data,i ) in currentData" v-bind:key="i"  @click="selectRow(data.id)" class="link-ff-table-683669635693">
+            <td v-bind:id="data.id" v-for="( field,j ) in data.fields" v-bind:key="j">
+              <span v-if="checked[data.id]" uk-icon="icon: check; ratio: 1.4" class="uk-text-primary"></span>
+              {{field}}
+            </td>
         </tr>
     </tbody>
     </table>
@@ -49,88 +52,90 @@ export default {
       showPageNum: true,
       numOfPages: 0,
       pageNum: 0,
+      checked: [],
       selectable: true,
+      selectedRows: [],
       tableData: [
         {
-        id: "5f4ea6e02e371febec0ee2aa",
+        id: "1",
         fields:{
           name: "Watkins Contreras"
         }
         },
         {
-        id: "5f4ea6e0478874ee749c8d85",
+        id: "2",
         fields:{
           name: "Fitzpatrick Sweeney"
         }
         },
         {
-        id: "5f4ea6e05846df317dac2275",
+        id: "3",
         fields:{
           name: "Lane Odonnell"
         }
         },
         {
-        id: "5f4ea6e03886435fc6cad244",
+        id: "4",
         fields:{
           name: "Decker Hurst"
         }
         },
         {
-        id: "5f4ea6e06b93cf50fac4a665",
+        id: "5",
         fields:{
           name: "Gomez Patton"
         }
         },
         {
-        id: "5f4ea6e08aff80bb832e9644",
+        id: "6",
         fields:{
           name: "Heath Mitchell"
         }
         },
         {
-        id: "5f4ea6e0467ecacabbf67f8a",
+        id: "7",
         fields:{
           name: "Jeanette Duffy"
         }
         },
         {
-        id: "5f4ea6e02e371febec0ee2aa",
+        id: "8",
         fields:{
           name: "Watkins Contreras"
         }
         },
         {
-        id: "5f4ea6e0478874ee749c8d85",
+        id: "9",
         fields:{
           name: "Fitzpatrick Sweeney"
         }
         },
         {
-        id: "5f4ea6e05846df317dac2275",
+        id: "10",
         fields:{
           name: "Lane Odonnell"
         }
         },
         {
-        id: "5f4ea6e03886435fc6cad244",
+        id: "11",
         fields:{
           name: "Decker Hurst"
         }
         },
         {
-        id: "5f4ea6e06b93cf50fac4a665",
+        id: "12",
         fields:{
           name: "Gomez Patton"
         }
         },
         {
-        id: "5f4ea6e08aff80bb832e9644",
+        id: "13",
         fields:{
           name: "Heath Mitchell"
         }
         },
         {
-        id: "5f4ea6e0467ecacabbf67f8a",
+        id: "14",
         fields:{
           name: "Jeanette Duffy"
         }
@@ -146,6 +151,7 @@ export default {
         this.numOfPages = Math.floor(this.numOfPages) + 1
       }
       this.countData()
+      this.getChecked()
     },
     countData: function () {
       this.currentData = []
@@ -157,8 +163,21 @@ export default {
         }
       }
     },
+    selectRow: function (id) {
+      this.selectedRows.push(id)
+    },
     getPage: function (page) {
       this.pageNum = page
+    },
+    getChecked: function () {
+      this.checked = []
+      for(var i = 0; i < this.tableData.length; i++){
+        if(this.selectedRows.includes(this.tableData[i].id)){
+          this.checked[this.tableData[i].id] = true
+        }else{
+          this.checked[this.tableData[i].id] = false
+        }
+      }
     }
   },
   mounted () {
@@ -177,6 +196,9 @@ export default {
     },
     show: function () {
       this.initTable()
+    },
+    selectedRows: function () {
+      this.getChecked()
     }
   },
   components: {
@@ -185,7 +207,7 @@ export default {
 </script>
 
 <style>
-  .link-ff-table-876543{
+  .link-ff-table-683669635693{
     cursor: pointer;
   }
 </style>
