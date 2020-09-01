@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <table class="uk-table uk-table-striped">
+    <table v-if="!selectable" class="uk-table uk-table-striped">
     <thead>
         <tr>
             <th v-for="( header,i ) in tableHeaders" v-bind:key="i">{{header}}</th>
@@ -12,7 +12,21 @@
         </tr>
     </tbody>
     </table>
-    <p class="uk-text-center uk-text-meta">Página No. {{pageNum}}</p>
+
+    <table v-if="selectable" class="uk-table uk-table-striped uk-table-hover">
+    <thead>
+        <tr>
+            <th v-for="( header,i ) in tableHeaders" v-bind:key="i">{{header}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="( data,i ) in currentData" v-bind:key="i" class="link-ff-table-876543">
+            <td v-bind:id="data.id" v-for="( field,j ) in data.fields" v-bind:key="j">{{field}}</td>
+        </tr>
+    </tbody>
+    </table>
+
+    <p v-if="showPageNum" class="uk-text-center uk-text-meta">Página No. {{pageNum}}</p>
     <ul class="uk-pagination uk-flex-center" uk-margin>
     <li><a href="#" @click="pageNum -= 1"><span uk-pagination-previous></span></a></li>
     <li v-for="index in numOfPages" :key="index"><a href="#" @click="getPage(index)">{{index}}</a></li>
@@ -35,6 +49,7 @@ export default {
       showPageNum: true,
       numOfPages: 0,
       pageNum: 0,
+      selectable: true,
       tableData: [
         {
         id: "5f4ea6e02e371febec0ee2aa",
@@ -170,4 +185,7 @@ export default {
 </script>
 
 <style>
+  .link-ff-table-876543{
+    cursor: pointer;
+  }
 </style>
