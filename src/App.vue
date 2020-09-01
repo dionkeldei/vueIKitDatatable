@@ -54,7 +54,12 @@ export default {
       pageNum: 0,
       checked: [],
       selectable: true,
-      selectedRows: [],
+      selectedRows: [
+        '1',
+        '2',
+        '3',
+        '7'
+      ],
       tableData: [
         {
         id: "1",
@@ -164,7 +169,17 @@ export default {
       }
     },
     selectRow: function (id) {
-      this.selectedRows.push(id)
+      if(!this.selectedRows.includes(id)){
+        this.selectedRows.push(id)
+      }else{
+        var selected = this.selectedRows
+        this.selectedRows = []
+        for(var i = 0;i < selected.length; i ++){
+          if(selected[i] !== id)
+          this.selectedRows.push(selected[i])
+        }
+      }
+
     },
     getPage: function (page) {
       this.pageNum = page
