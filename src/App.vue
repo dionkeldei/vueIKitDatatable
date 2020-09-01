@@ -140,6 +140,13 @@ export default {
   },
   watch: {
     pageNum: function () {
+      if(this.pageNum < 1){
+        this.pageNum = 1
+        return false
+      }else if (this.pageNum > this.numOfPages){
+        this.pageNum = this.numOfPages
+        return false
+      }
       this.currentData = []
       var startCount = (this.show * (this.pageNum - 1))
       var finishCount = startCount + this.show
