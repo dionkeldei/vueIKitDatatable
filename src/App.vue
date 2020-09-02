@@ -22,7 +22,7 @@
     <tbody>
         <tr v-for="( data,i ) in currentData" v-bind:key="i"  @click="selectRow(data.id)" class="link-ff-table-683669635693">
             <td v-bind:id="data.id" v-for="( field,j ) in data.fields" v-bind:key="j">
-              <span v-if="checked[data.id]" uk-icon="icon: check; ratio: 1.4" class="uk-text-primary"></span>
+              <span v-if="checked[data.id] && j === 0" uk-icon="icon: check; ratio: 1.4" class="uk-text-primary"></span>
               {{field}}
             </td>
         </tr>
@@ -45,15 +45,20 @@ export default {
   data () {
     return {
       tableHeaders: [
-        'Nombre'
+        'Nombre',
+        'Mail'
       ],
       currentData: [],
-      show: 2,
+      show: 6,
       showPageNum: true,
       numOfPages: 0,
       pageNum: 0,
       checked: [],
       selectable: true,
+      checkVisibility: [
+        false,
+        true
+      ],
       selectedRows: [
         '1',
         '2',
@@ -63,87 +68,101 @@ export default {
       tableData: [
         {
         id: "1",
-        fields:{
-          name: "Watkins Contreras"
-        }
+        fields:[
+          "Watkins Contreras",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "2",
-        fields:{
-          name: "Fitzpatrick Sweeney"
-        }
+        fields:[
+          "Fitzpatrick Sweeney",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "3",
-        fields:{
-          name: "Lane Odonnell"
-        }
+        fields:[
+          "Lane Odonnell",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "4",
-        fields:{
-          name: "Decker Hurst"
-        }
+        fields:[
+          "Decker Hurst",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "5",
-        fields:{
-          name: "Gomez Patton"
-        }
+        fields:[
+          "Gomez Patton",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "6",
-        fields:{
-          name: "Heath Mitchell"
-        }
+        fields:[
+          "Heath Mitchell",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "7",
-        fields:{
-          name: "Jeanette Duffy"
-        }
+        fields:[
+          "Jeanette Duffy",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "8",
-        fields:{
-          name: "Watkins Contreras"
-        }
+        fields:[
+          "Watkins Contreras",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "9",
-        fields:{
-          name: "Fitzpatrick Sweeney"
-        }
+        fields:[
+          "Fitzpatrick Sweeney",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "10",
-        fields:{
-          name: "Lane Odonnell"
-        }
+        fields:[
+          "Lane Odonnell",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "11",
-        fields:{
-          name: "Decker Hurst"
-        }
+        fields:[
+          "Decker Hurst",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "12",
-        fields:{
-          name: "Gomez Patton"
-        }
+        fields:[
+          "Gomez Patton",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "13",
-        fields:{
-          name: "Heath Mitchell"
-        }
+        fields:[
+          "Heath Mitchell",
+          "hhh@ghbd.com"
+        ]
         },
         {
         id: "14",
-        fields:{
-          name: "Jeanette Duffy"
-        }
+        fields:[
+          "Jeanette Duffy",
+          "hhh@ghbd.com"
+        ]
         }
       ]
     }
