@@ -3,7 +3,7 @@
     <table v-if="!selectable" class="uk-table uk-table-striped uk-table-hover">
     <thead>
         <tr>
-            <th v-for="( header,i ) in tableHeaders" v-bind:key="i">{{header}}</th>
+            <th v-for="( header,i ) in headers" v-bind:key="i">{{header}}</th>
         </tr>
     </thead>
     <tbody>
@@ -16,7 +16,7 @@
     <table v-if="selectable" class="uk-table uk-table-striped uk-table-hover">
     <thead>
         <tr>
-            <th v-for="( header,i ) in tableHeaders" v-bind:key="i">{{header}}</th>
+            <th v-for="( header,i ) in headers" v-bind:key="i">{{header}}</th>
         </tr>
     </thead>
     <tbody>
@@ -42,9 +42,15 @@
 <script>
 export default {
   name: 'App',
+  props: {
+    /*headers: Array,
+    data: Array,
+    show: Number,
+    selectedids: Array*/
+  },
   data () {
     return {
-      tableHeaders: [
+      headers: [
         'Nombre',
         'Mail'
       ],
@@ -65,7 +71,7 @@ export default {
         '3',
         '7'
       ],
-      tableData: [
+      data: [
         {
         id: "1",
         fields:[
@@ -182,7 +188,7 @@ export default {
   methods: {
     initTable: function () {
       this.pageNum = 1
-      this.numOfPages = this.tableData.length / this.show
+      this.numOfPages = this.data.length / this.show
       if(Math.floor(this.numOfPages) < this.numOfPages){
         this.numOfPages = Math.floor(this.numOfPages) + 1
       }
@@ -194,8 +200,8 @@ export default {
       var startCount = (this.show * (this.pageNum - 1))
       var finishCount = startCount + this.show
       for(startCount; startCount < finishCount; startCount++){
-        if(this.tableData[startCount] !== undefined){
-          this.currentData.push(this.tableData[startCount])
+        if(this.data[startCount] !== undefined){
+          this.currentData.push(this.data[startCount])
         }
       }
     },
@@ -217,11 +223,11 @@ export default {
     },
     getChecked: function () {
       this.checked = []
-      for(var i = 0; i < this.tableData.length; i++){
-        if(this.selectedids.includes(this.tableData[i].id)){
-          this.checked[this.tableData[i].id] = true
+      for(var i = 0; i < this.data.length; i++){
+        if(this.selectedids.includes(this.data[i].id)){
+          this.checked[this.data[i].id] = true
         }else{
-          this.checked[this.tableData[i].id] = false
+          this.checked[this.data[i].id] = false
         }
       }
     },
