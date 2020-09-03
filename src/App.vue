@@ -219,7 +219,7 @@ export default {
           this.selectedids.push(selected[i])
         }
       }
-
+      this.$emit('updateSelected', this.selectedids)
     },
     getPage: function (page) {
       this.pageNum = page
