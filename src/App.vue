@@ -46,7 +46,8 @@ export default {
     /*headers: Array,
     fields: Array,
     show: Number,
-    selectedids: Array*/
+    selectedids: Array,
+    search: String*/
   },
   data () {
     return {
