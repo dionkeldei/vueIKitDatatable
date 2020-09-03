@@ -44,7 +44,7 @@ export default {
   name: 'App',
   props: {
     /*headers: Array,
-    data: Array,
+    fields: Array,
     show: Number,
     selectedids: Array*/
   },
@@ -65,13 +65,14 @@ export default {
         false,
         true
       ],
+      search: '',
       selectedids: [
         '1',
         '2',
         '3',
         '7'
       ],
-      data: [
+      fields: [
         {
         id: "1",
         fields:[
@@ -182,7 +183,8 @@ export default {
           "hhh@ghbd.com"
         ]
         }
-      ]
+      ],
+      data: []
     }
   },
   methods: {
@@ -243,6 +245,7 @@ export default {
     }
   },
   mounted () {
+    this.data = this.fields
     this.initTable()
   },
   watch: {
@@ -261,6 +264,28 @@ export default {
     },
     selectedids: function () {
       this.getChecked()
+    },
+    search: function () {
+      var str = this.search.toLowerCase()
+      if(str === ''){
+        this.data = this.fields
+        this.initTable()
+        return false
+      }
+      this.data = []
+      for(var i = 0; i < this.fields.length; i++){
+        var hasIt = false
+        for(var j = 0; j < this.fields[i].fields.length; j++){
+          var checkStr = this.fields[i].fields[j].toLowerCase()
+          if(checkStr.includes(str)){
+            hasIt = true
+          }
+        }
+        if(hasIt === true){
+          this.data.push(this.fields[i])
+        }
+      }
+      this.initTable()
     }
   },
   components: {
