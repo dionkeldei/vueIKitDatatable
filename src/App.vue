@@ -43,29 +43,31 @@
 export default {
   name: 'App',
   props: {
-    /*headers: Array,
+    headers: Array,
     fields: Array,
     show: Number,
-    selectedids: Array,
-    search: String*/
+    selected: Array,
+    search: String,
+    selectable: Boolean
   },
   data () {
     return {
-      headers: [
-        'Nombre',
-        'Mail'
-      ],
       currentData: [],
-      show: 6,
       showPageNum: true,
       numOfPages: 0,
       pageNum: 0,
       checked: [],
-      selectable: false,
+      selectedids: [],
       checkVisibility: [
         false,
         true
       ],
+      /*selectable: false,
+      headers: [
+        'Nombre',
+        'Mail'
+      ],
+      show: 6,
       search: '',
       selectedids: [
         '1',
@@ -184,7 +186,7 @@ export default {
           "hhh@ghbd.com"
         ]
         }
-      ],
+      ],*/
       data: []
     }
   },
@@ -219,7 +221,7 @@ export default {
           this.selectedids.push(selected[i])
         }
       }
-      this.$emit('updateSelected', this.selectedids)
+      this.$emit('selectupdate', this.selectedids)
     },
     getPage: function (page) {
       this.pageNum = page
@@ -247,6 +249,7 @@ export default {
   },
   mounted () {
     this.data = this.fields
+    this.selectedids = this.selected
     this.initTable()
   },
   watch: {
