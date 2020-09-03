@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <table v-if="!selectable" class="uk-table uk-table-striped">
+    <table v-if="!selectable" class="uk-table uk-table-striped uk-table-hover">
     <thead>
         <tr>
             <th v-for="( header,i ) in tableHeaders" v-bind:key="i">{{header}}</th>
         </tr>
     </thead>
     <tbody>
-        <tr v-for="( data,i ) in currentData" v-bind:key="i">
+        <tr v-for="( data,i ) in currentData" v-bind:key="i" :class="isLink(i)" @click="goTo(i)">
             <td v-bind:id="data.id" v-for="( field,j ) in data.fields" v-bind:key="j">{{field}}</td>
         </tr>
     </tbody>
@@ -54,12 +54,12 @@ export default {
       numOfPages: 0,
       pageNum: 0,
       checked: [],
-      selectable: true,
+      selectable: false,
       checkVisibility: [
         false,
         true
       ],
-      selectedRows: [
+      selectedids: [
         '1',
         '2',
         '3',
@@ -75,6 +75,7 @@ export default {
         },
         {
         id: "2",
+        link: "https://facebook.com",
         fields:[
           "Fitzpatrick Sweeney",
           "hhh@ghbd.com"
@@ -89,6 +90,7 @@ export default {
         },
         {
         id: "4",
+        link: "https://google.com",
         fields:[
           "Decker Hurst",
           "hhh@ghbd.com"
@@ -96,6 +98,7 @@ export default {
         },
         {
         id: "5",
+        link: "https://google.com",
         fields:[
           "Gomez Patton",
           "hhh@ghbd.com"
@@ -103,6 +106,7 @@ export default {
         },
         {
         id: "6",
+        link: "https://google.com",
         fields:[
           "Heath Mitchell",
           "hhh@ghbd.com"
@@ -110,6 +114,7 @@ export default {
         },
         {
         id: "7",
+        link: "https://google.com",
         fields:[
           "Jeanette Duffy",
           "hhh@ghbd.com"
@@ -117,6 +122,7 @@ export default {
         },
         {
         id: "8",
+        link: "https://google.com",
         fields:[
           "Watkins Contreras",
           "hhh@ghbd.com"
@@ -124,6 +130,7 @@ export default {
         },
         {
         id: "9",
+        link: "https://google.com",
         fields:[
           "Fitzpatrick Sweeney",
           "hhh@ghbd.com"
@@ -131,6 +138,7 @@ export default {
         },
         {
         id: "10",
+        link: "https://google.com",
         fields:[
           "Lane Odonnell",
           "hhh@ghbd.com"
@@ -138,6 +146,7 @@ export default {
         },
         {
         id: "11",
+        link: "https://google.com",
         fields:[
           "Decker Hurst",
           "hhh@ghbd.com"
@@ -145,6 +154,7 @@ export default {
         },
         {
         id: "12",
+        link: "https://google.com",
         fields:[
           "Gomez Patton",
           "hhh@ghbd.com"
@@ -152,6 +162,7 @@ export default {
         },
         {
         id: "13",
+        link: "https://google.com",
         fields:[
           "Heath Mitchell",
           "hhh@ghbd.com"
@@ -159,6 +170,7 @@ export default {
         },
         {
         id: "14",
+        link: "https://google.com",
         fields:[
           "Jeanette Duffy",
           "hhh@ghbd.com"
@@ -188,14 +200,14 @@ export default {
       }
     },
     selectRow: function (id) {
-      if(!this.selectedRows.includes(id)){
-        this.selectedRows.push(id)
+      if(!this.selectedids.includes(id)){
+        this.selectedids.push(id)
       }else{
-        var selected = this.selectedRows
-        this.selectedRows = []
+        var selected = this.selectedids
+        this.selectedids = []
         for(var i = 0;i < selected.length; i ++){
           if(selected[i] !== id)
-          this.selectedRows.push(selected[i])
+          this.selectedids.push(selected[i])
         }
       }
 
@@ -206,11 +218,21 @@ export default {
     getChecked: function () {
       this.checked = []
       for(var i = 0; i < this.tableData.length; i++){
-        if(this.selectedRows.includes(this.tableData[i].id)){
+        if(this.selectedids.includes(this.tableData[i].id)){
           this.checked[this.tableData[i].id] = true
         }else{
           this.checked[this.tableData[i].id] = false
         }
+      }
+    },
+    isLink: function (i) {
+      if(this.currentData[i].link){
+        return 'link-ff-table-683669635693'
+      }
+    },
+    goTo: function (i) {
+      if(this.currentData[i].link){
+        window.location.href = this.currentData[i].link;
       }
     }
   },
@@ -231,7 +253,7 @@ export default {
     show: function () {
       this.initTable()
     },
-    selectedRows: function () {
+    selectedids: function () {
       this.getChecked()
     }
   },
