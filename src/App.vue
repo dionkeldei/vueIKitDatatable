@@ -46,9 +46,9 @@ export default {
     headers: Array,
     fields: Array,
     show: Number,
-    selected: Array,
     search: String,
-    selectable: Boolean
+    selectable: Boolean,
+    selected: Array
   },
   data () {
     return {
@@ -56,8 +56,8 @@ export default {
       showPageNum: true,
       numOfPages: 0,
       pageNum: 0,
+      selectedid: [],
       checked: [],
-      selectedids: [],
       checkVisibility: [
         false,
         true
@@ -69,12 +69,6 @@ export default {
       ],
       show: 6,
       search: '',
-      selectedids: [
-        '1',
-        '2',
-        '3',
-        '7'
-      ],
       fields: [
         {
         id: "1",
@@ -192,6 +186,9 @@ export default {
   },
   methods: {
     initTable: function () {
+      if(this.fields.length <= 0){
+        return false
+      }
       this.pageNum = 1
       this.numOfPages = this.data.length / this.show
       if(Math.floor(this.numOfPages) < this.numOfPages){
@@ -199,6 +196,7 @@ export default {
       }
       this.countData()
       this.getChecked()
+
     },
     countData: function () {
       this.currentData = []
@@ -211,17 +209,17 @@ export default {
       }
     },
     selectRow: function (id) {
-      if(!this.selectedids.includes(id)){
-        this.selectedids.push(id)
+      if(!this.selectedid.includes(id)){
+        this.selectedid.push(id)
       }else{
-        var selected = this.selectedids
-        this.selectedids = []
+        var selected = this.selectedid
+        this.selectedid = []
         for(var i = 0;i < selected.length; i ++){
           if(selected[i] !== id)
-          this.selectedids.push(selected[i])
+          this.selectedid.push(selected[i])
         }
       }
-      this.$emit('selectupdate', this.selectedids)
+      this.$emit('selectupdate', this.selectedid)
     },
     getPage: function (page) {
       this.pageNum = page
@@ -229,7 +227,7 @@ export default {
     getChecked: function () {
       this.checked = []
       for(var i = 0; i < this.data.length; i++){
-        if(this.selectedids.includes(this.data[i].id)){
+        if(this.selectedid.includes(this.data[i].id)){
           this.checked[this.data[i].id] = true
         }else{
           this.checked[this.data[i].id] = false
@@ -249,7 +247,9 @@ export default {
   },
   mounted () {
     this.data = this.fields
-    this.selectedids = this.selected
+    if(this.selected !== undefined){
+       this.selectedid = this.selected
+    }
     this.initTable()
   },
   watch: {
@@ -266,7 +266,7 @@ export default {
     show: function () {
       this.initTable()
     },
-    selectedids: function () {
+    selectedid: function () {
       this.getChecked()
     },
     search: function () {
