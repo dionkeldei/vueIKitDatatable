@@ -187,6 +187,10 @@ export default {
   methods: {
     initTable: function () {
       if(this.fields.length <= 0){
+        this.numOfPages = 1
+        this.pageNum = 0
+        this.countData()
+        this.getChecked()
         return false
       }
       this.pageNum = 1
@@ -196,7 +200,6 @@ export default {
       }
       this.countData()
       this.getChecked()
-
     },
     countData: function () {
       this.currentData = []
@@ -207,6 +210,7 @@ export default {
           this.currentData.push(this.data[startCount])
         }
       }
+
     },
     selectRow: function (id) {
       if(!this.selectedid.includes(id)){
@@ -288,6 +292,13 @@ export default {
         if(hasIt === true){
           this.data.push(this.fields[i])
         }
+      }
+      this.initTable()
+    },
+    fields: function () {
+      this.data = this.fields
+      if(this.selected !== undefined){
+         this.selectedid = this.selected
       }
       this.initTable()
     }
