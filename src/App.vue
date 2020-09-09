@@ -239,13 +239,16 @@ export default {
       }
     },
     isLink: function (i) {
-      if(this.currentData[i].link){
+      if(this.currentData[i].link || this.currentData[i].onclick){
         return 'link-ff-table-683669635693'
       }
     },
     goTo: function (i) {
       if(this.currentData[i].link){
-        window.location.href = this.currentData[i].link;
+        window.location.href = this.currentData[i].link
+      }
+      if(this.currentData[i].onclick){
+        this.$emit('clicked', this.currentData[i].id)
       }
     }
   },
