@@ -1,5 +1,39 @@
 # datatable
 
+## Ejemplo
+```
+<link rel="stylesheet" href="./vueDataTable.css">
+
+<div id="app-assign">
+  <data-table :headers="headers" :search="search" :fields="fields" :selectable="selectable" :show="show"/>
+</div>
+
+<script src="./vueDataTable.umd.min.js"></script>
+<script>
+new Vue({
+  name: 'ibizaDataTable',
+  data: {
+    fields: [
+    id: 1,
+    fields: [
+    'curso1',
+    'Estado1',
+    'Pago1',
+    'Descarga1'
+    ]
+    ],
+    headers: ['Curso', 'Estado','Pago','Descarga'],
+    show: 6,
+    selectable: false,
+    search: ''
+  },
+  components: {
+    dataTable: vueDataTable
+  }
+}).$mount('#app-assign')
+</script>
+```
+
 ## Project setup
 ```
 npm install
