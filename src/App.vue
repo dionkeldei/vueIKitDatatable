@@ -8,7 +8,7 @@
     </thead>
     <tbody>
         <tr v-for="( data,i ) in currentData" v-bind:key="i" :class="isLink(i)" @click="goTo(i)">
-            <td v-bind:id="data.id" v-for="( field,j ) in data.fields" v-bind:key="j">{{field}}</td>
+            <td v-bind:id="data.id" v-for="( field,j ) in data.fields" v-bind:key="j" v-html="field"></td>
         </tr>
     </tbody>
     </table>
