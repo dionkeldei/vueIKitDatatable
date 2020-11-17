@@ -33,7 +33,25 @@ new Vue({
 }).$mount('#app-assign')
 </script>
 ```
-
+## Ejemplo Fields
+```
+fields: [
+        {
+        id: "1",
+        fields:[
+          "Watkins Contreras",
+          "hhh@ghbd.com"
+        ]
+        },
+        {
+        id: "2",
+        link: "https://facebook.com",
+        fields:[
+          "Fitzpatrick Sweeney",
+          "hhh@ghbd.com"
+        ]
+        }]
+```
 ## Project setup
 ```
 npm install
