@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <table v-if="!selectable" class="uk-table uk-table-striped uk-table-hover">
     <thead>
         <tr>
