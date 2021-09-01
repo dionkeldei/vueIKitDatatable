@@ -1,5 +1,5 @@
 {
-  "name": "datatable",
+  "name": "vueIkitDatatable",
   "version": "0.4.0",
   "private": false,
   "main": "dist/vueDataTable.umd.min.js",
